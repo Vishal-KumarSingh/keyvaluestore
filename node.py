@@ -360,7 +360,6 @@ def handle_connection(node, command_dict, timeout=None):
             if retries == 0:
                 break
             time.sleep(delay)
-            delay *= BACKOFF_FACTOR
         except Exception as e:
             break
     return None
@@ -495,8 +494,7 @@ def join(known_node=None):
                 # Always notify our successor
                 remote_notify(successor, (ip, port))
                     
-                # Force an immediate stabilization
-                stabilize_immediate()
+                
                     
             except Exception as e:
                 print(f"Warning: Error during predecessor setup: {e}")
